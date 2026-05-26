@@ -329,24 +329,7 @@ async def get_all_dimensions_summary():
 
 @router.post("/calculate-core-scores")
 async def calculate_core_from_responses(responses: Dict[str, int]):
-    """
-    Calculate CORE dimension scores from raw questionnaire responses
-    
-    Input:
-    {
-      "Q1": 4, "Q2": 4, "Q3": 3, "Q4": 4, "Q5": 4,
-      "Q6": 4, "Q7": 3, "Q8": 4, "Q9": 4, "Q10": 5
-    }
-    
-    Returns:
-    {
-      "Control": 4.0,
-      "Ownership": 4.0,
-      "Reach": 3.0,
-      "Endurance": 4.33,
-      "aq_score": 3.83
-    }
-    """
+   
     try:
         logger.info("Calculating CORE scores from responses")
         

@@ -15,25 +15,12 @@ router = APIRouter(
 
 @router.get("/health")
 async def health_check():
-    """
-    Health check endpoint
-    
-    Verifies that the backend is running and accessible.
-    Use this to check if the server is alive.
-    
-    Returns:
-    {
-      "status": "OK",
-      "service": "AQ Prediction System",
-      "timestamp": "2026-05-26T10:30:00",
-      "version": "1.0.0"
-    }
-    """
+   
     try:
         logger.info("Health check requested")
         
         # Import model registry to verify models are loaded
-        from app import model_registry
+        from backend.main import model_registry
         
         models_loaded = len(model_registry.models) == 5 if model_registry else False
         
