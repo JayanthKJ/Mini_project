@@ -1,0 +1,205 @@
+/* ============================================
+   Feature Importance Styles
+   ============================================ */
+
+.feature-importance {
+  animation: fadeIn 0.5s ease;
+}
+
+.feature-importance .section-header {
+  margin-bottom: var(--space-2xl);
+}
+
+/* --- Chart Container --- */
+.importance-chart {
+  background: var(--color-surface);
+  backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--space-2xl);
+}
+
+.importance-chart h3 {
+  margin-bottom: var(--space-xl);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+/* --- Feature Rows --- */
+.feature-rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.feature-row {
+  animation: slideUp 0.5s ease backwards;
+}
+
+.feature-row:nth-child(1) { animation-delay: 0.05s; }
+.feature-row:nth-child(2) { animation-delay: 0.1s; }
+.feature-row:nth-child(3) { animation-delay: 0.15s; }
+.feature-row:nth-child(4) { animation-delay: 0.2s; }
+.feature-row:nth-child(5) { animation-delay: 0.25s; }
+.feature-row:nth-child(6) { animation-delay: 0.3s; }
+.feature-row:nth-child(7) { animation-delay: 0.35s; }
+.feature-row:nth-child(8) { animation-delay: 0.4s; }
+.feature-row:nth-child(9) { animation-delay: 0.45s; }
+.feature-row:nth-child(10) { animation-delay: 0.5s; }
+
+.feature-row-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-sm);
+}
+
+.rank-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+  color: white;
+}
+
+.rank-badge.top-3 {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  box-shadow: 0 2px 8px rgba(var(--color-primary-rgb), 0.3);
+}
+
+.rank-badge.regular {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-muted);
+}
+
+.feature-name {
+  flex: 1;
+}
+
+.feature-question-id {
+  font-weight: 700;
+  color: var(--color-primary);
+  font-size: 0.85rem;
+}
+
+.feature-description {
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+  margin-left: var(--space-xs);
+}
+
+.feature-importance-value {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+  min-width: 55px;
+  text-align: right;
+}
+
+/* --- Importance Bar --- */
+.feature-bar-track {
+  height: 10px;
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-left: calc(28px + var(--space-md));
+}
+
+.feature-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: growWidth 1.2s ease;
+}
+
+.feature-bar-fill.top {
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+}
+
+.feature-bar-fill.mid {
+  background: linear-gradient(90deg, var(--color-accent), var(--color-success));
+}
+
+.feature-bar-fill.low {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+}
+
+/* --- Insight Cards --- */
+.insight-card {
+  margin-left: calc(28px + var(--space-md));
+  margin-top: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(var(--color-primary-rgb), 0.04);
+  border-left: 3px solid var(--color-primary);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.insight-card strong {
+  color: var(--color-primary);
+}
+
+/* --- Legend --- */
+.chart-legend {
+  display: flex;
+  gap: var(--space-lg);
+  justify-content: center;
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.legend-dot.high { background: var(--color-primary); }
+.legend-dot.medium { background: var(--color-accent); }
+.legend-dot.low { background: var(--color-bg-secondary); border: 1px solid var(--color-border); }
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .importance-chart {
+    padding: var(--space-lg);
+  }
+
+  .feature-row-header {
+    flex-wrap: wrap;
+  }
+
+  .feature-bar-track {
+    margin-left: 0;
+  }
+
+  .insight-card {
+    margin-left: 0;
+  }
+
+  .chart-legend {
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+}

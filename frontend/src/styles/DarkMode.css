@@ -1,0 +1,197 @@
+/* ============================================
+   Dark Mode Theme Overrides
+   ============================================ */
+
+/* Smooth transition for theme switching */
+*, *::before, *::after {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+[data-theme="dark"] {
+  /* Primary palette */
+  --color-primary: hsl(243, 80%, 65%);
+  --color-primary-light: hsl(243, 85%, 75%);
+  --color-primary-dark: hsl(243, 75%, 55%);
+
+  /* Accent */
+  --color-accent: hsl(168, 76%, 50%);
+  --color-accent-light: hsl(168, 76%, 60%);
+
+  /* Semantic */
+  --color-success: hsl(152, 69%, 50%);
+  --color-success-light: hsl(152, 69%, 60%);
+  --color-warning: hsl(38, 92%, 58%);
+  --color-warning-light: hsl(38, 92%, 68%);
+  --color-danger: hsl(0, 84%, 65%);
+  --color-danger-light: hsl(0, 84%, 75%);
+
+  /* Backgrounds */
+  --color-bg: hsl(225, 25%, 8%);
+  --color-bg-secondary: hsl(225, 22%, 13%);
+  --color-surface: rgba(30, 32, 44, 0.7);
+  --color-surface-solid: hsl(225, 22%, 14%);
+  --color-surface-hover: rgba(40, 42, 56, 0.9);
+
+  /* Text */
+  --color-text: hsl(220, 20%, 92%);
+  --color-text-secondary: hsl(220, 15%, 65%);
+  --color-text-muted: hsl(220, 10%, 50%);
+
+  /* Borders */
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.15);
+
+  /* Shadows (subtle glow instead of shadow) */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 0 10px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 0, 0, 0.2);
+  --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 0, 0, 0.25);
+  --shadow-glow: 0 0 30px rgba(var(--color-primary-rgb), 0.2);
+
+  /* Glassmorphism */
+  --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Dark mode specific overrides */
+[data-theme="dark"] body {
+  color-scheme: dark;
+}
+
+/* Dark scrollbar */
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Dark mode table */
+[data-theme="dark"] .model-table tbody tr {
+  background: var(--color-surface-solid);
+}
+
+[data-theme="dark"] .model-table tbody tr:nth-child(even) {
+  background: var(--color-bg-secondary);
+}
+
+[data-theme="dark"] .model-table thead {
+  background: var(--color-bg-secondary);
+}
+
+/* Dark mode dimension badges */
+[data-theme="dark"] .dimension-badge.control {
+  background: rgba(99, 102, 241, 0.2);
+}
+
+[data-theme="dark"] .dimension-badge.ownership {
+  background: rgba(20, 184, 166, 0.2);
+}
+
+[data-theme="dark"] .dimension-badge.reach {
+  background: rgba(245, 158, 11, 0.2);
+}
+
+[data-theme="dark"] .dimension-badge.endurance {
+  background: rgba(16, 185, 129, 0.2);
+}
+
+/* Dark mode cards */
+[data-theme="dark"] .question-card.answered {
+  border-left-color: var(--color-success);
+}
+
+[data-theme="dark"] .question-number {
+  background: var(--color-bg-secondary);
+}
+
+[data-theme="dark"] .likert-circle {
+  background: var(--color-surface-solid);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .likert-option:hover .likert-circle {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* Dark mode error alert */
+[data-theme="dark"] .error-alert {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
+/* Dark mode backend status */
+[data-theme="dark"] .backend-status.online {
+  background: rgba(16, 185, 129, 0.15);
+}
+
+[data-theme="dark"] .backend-status.offline {
+  background: rgba(239, 68, 68, 0.15);
+}
+
+/* Dark mode weak cards */
+[data-theme="dark"] .weak-card {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+/* Dark mode pattern card */
+[data-theme="dark"] .pattern-card {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(20, 184, 166, 0.08));
+  border-color: rgba(99, 102, 241, 0.2);
+}
+
+/* Dark mode insight card */
+[data-theme="dark"] .insight-card {
+  background: rgba(99, 102, 241, 0.08);
+}
+
+/* Dark mode mobile cards */
+[data-theme="dark"] .model-card-mobile {
+  background: var(--color-surface);
+}
+
+/* Dark mode dimension q-tags */
+[data-theme="dark"] .dimension-q-tag {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+}
+
+/* Dark mode progress bar and inputs */
+[data-theme="dark"] .progress-track,
+[data-theme="dark"] .dimension-progress-track,
+[data-theme="dark"] .confidence-bar-track,
+[data-theme="dark"] .chart-bar-track,
+[data-theme="dark"] .feature-bar-track {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Dark mode severity badges have slightly higher contrast */
+[data-theme="dark"] .severity-badge.high {
+  background: rgba(239, 68, 68, 0.18);
+}
+
+[data-theme="dark"] .severity-badge.medium {
+  background: rgba(245, 158, 11, 0.18);
+}
+
+[data-theme="dark"] .severity-badge.low {
+  background: rgba(16, 185, 129, 0.18);
+}
+
+/* Dark mode best model card */
+[data-theme="dark"] .best-model-card {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(20, 184, 166, 0.12));
+  border-color: rgba(99, 102, 241, 0.25);
+}
+
+/* Dark mode submit button glow */
+[data-theme="dark"] .submit-btn {
+  box-shadow: 0 6px 30px rgba(var(--color-primary-rgb), 0.4);
+}
+
+[data-theme="dark"] .submit-btn:hover:not(:disabled) {
+  box-shadow: 0 8px 40px rgba(var(--color-primary-rgb), 0.5);
+}

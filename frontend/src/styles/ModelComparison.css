@@ -1,0 +1,287 @@
+/* ============================================
+   Model Comparison Styles
+   ============================================ */
+
+.model-comparison {
+  animation: fadeIn 0.5s ease;
+}
+
+/* --- Best Model Card --- */
+.best-model-card {
+  background: linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.08), rgba(var(--color-accent-rgb), 0.08));
+  border: 1px solid rgba(var(--color-primary-rgb), 0.2);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl) var(--space-2xl);
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-2xl);
+  animation: slideUp 0.5s ease;
+}
+
+.best-model-trophy {
+  font-size: 3rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+.best-model-info h3 {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.best-model-name {
+  font-size: 1.6rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.best-model-accuracy {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  margin-top: 4px;
+}
+
+.best-model-accuracy strong {
+  color: var(--color-success);
+  font-weight: 700;
+}
+
+/* --- Data Table --- */
+.model-table-wrapper {
+  margin-bottom: var(--space-2xl);
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+}
+
+.model-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.model-table thead {
+  background: var(--color-bg-secondary);
+}
+
+.model-table th {
+  padding: var(--space-md) var(--space-lg);
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+  border-bottom: 2px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.model-table td {
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.model-table tbody tr {
+  transition: background var(--transition-fast);
+  background: var(--color-surface-solid);
+}
+
+.model-table tbody tr:nth-child(even) {
+  background: var(--color-bg);
+}
+
+.model-table tbody tr:hover {
+  background: rgba(var(--color-primary-rgb), 0.04);
+}
+
+.model-table tbody tr.best-row {
+  background: rgba(var(--color-primary-rgb), 0.06);
+  position: relative;
+}
+
+.model-table tbody tr.best-row td:first-child {
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.model-name-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-weight: 500;
+}
+
+.best-badge {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  color: white;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* --- Bar Chart --- */
+.accuracy-chart {
+  margin-bottom: var(--space-2xl);
+}
+
+.accuracy-chart h3 {
+  margin-bottom: var(--space-lg);
+}
+
+.chart-bars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.chart-bar-row {
+  display: grid;
+  grid-template-columns: 140px 1fr 60px;
+  align-items: center;
+  gap: var(--space-md);
+  animation: slideUp 0.5s ease backwards;
+}
+
+.chart-bar-row:nth-child(1) { animation-delay: 0.1s; }
+.chart-bar-row:nth-child(2) { animation-delay: 0.2s; }
+.chart-bar-row:nth-child(3) { animation-delay: 0.3s; }
+.chart-bar-row:nth-child(4) { animation-delay: 0.4s; }
+.chart-bar-row:nth-child(5) { animation-delay: 0.5s; }
+
+.chart-bar-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text);
+  text-align: right;
+}
+
+.chart-bar-track {
+  height: 28px;
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  position: relative;
+}
+
+.chart-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-sm);
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: growWidth 1.2s ease;
+  position: relative;
+}
+
+.chart-bar-fill.model-0 { background: linear-gradient(90deg, #6366f1, #818cf8); }
+.chart-bar-fill.model-1 { background: linear-gradient(90deg, #14b8a6, #2dd4bf); }
+.chart-bar-fill.model-2 { background: linear-gradient(90deg, #10b981, #34d399); }
+.chart-bar-fill.model-3 { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.chart-bar-fill.model-4 { background: linear-gradient(90deg, #ef4444, #f87171); }
+
+.chart-bar-value {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Mobile Cards View --- */
+.model-cards-mobile {
+  display: none;
+}
+
+.model-card-mobile {
+  background: var(--color-surface);
+  border: var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.model-card-mobile.best {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.1);
+}
+
+.model-card-mobile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-md);
+}
+
+.model-card-mobile-name {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.model-card-mobile-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+
+.metric-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.metric-label {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.metric-value {
+  font-weight: 700;
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.no-data-message {
+  text-align: center;
+  padding: var(--space-3xl);
+  color: var(--color-text-muted);
+}
+
+.no-data-message .empty-state-icon {
+  font-size: 3rem;
+  margin-bottom: var(--space-md);
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .model-table-wrapper {
+    display: none;
+  }
+
+  .model-cards-mobile {
+    display: block;
+  }
+
+  .best-model-card {
+    flex-direction: column;
+    text-align: center;
+    padding: var(--space-xl);
+  }
+
+  .chart-bar-row {
+    grid-template-columns: 100px 1fr 50px;
+  }
+
+  .chart-bar-label {
+    font-size: 0.75rem;
+  }
+}
