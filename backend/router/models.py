@@ -7,6 +7,8 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="", tags=["Models"])
 
+
+
 class ModelMetrics(BaseModel):
     model_name: str
     accuracy: float
@@ -23,13 +25,18 @@ class ModelComparisonResponse(BaseModel):
 @router.get("/model-comparison", response_model=ModelComparisonResponse)
 async def get_model_comparison():
     try:
-        from app import model_registry
+       
+        from main import model_registry
         
         if not model_registry.evaluation_metrics:
-            raise HTTPException(status_code=404, detail="ML evaluation metrics not found. Please run the training script.")
+            raise HTTPException(
+                status_code=404, 
+                detail="ML evaluation metrics not found. Please ensure 'evaluation_metrics.json' is generated during training."
+            )
 
         metrics_data = model_registry.evaluation_metrics
         
+     
         algorithms = [ModelMetrics(**model) for model in metrics_data]
         best_model = max(metrics_data, key=lambda x: x['accuracy'])
         
@@ -39,6 +46,8 @@ async def get_model_comparison():
             best_accuracy=best_model['accuracy']
         )
         
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Error retrieving model comparison: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Failed to retrieve model comparison: {str(e)}")

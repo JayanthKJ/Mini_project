@@ -17,22 +17,33 @@ class FeatureImportanceResponse(BaseModel):
     total_features: int
     interpretation: Dict[str, str]
 
-# Kept purely for English string mapping for the UI
+
 QUESTION_DESCRIPTIONS = {
-    'Q1': 'Can overcome academic difficulties', 'Q2': 'Takes responsibility for improvement',
-    'Q3': 'Setback doesn\'t affect confidence', 'Q4': 'Academic problems are temporary',
-    'Q5': 'Control response under pressure', 'Q6': 'Reflects on mistakes to improve',
-    'Q7': 'Failures don\'t define overall ability', 'Q8': 'Motivated when results not immediate',
-    'Q9': 'Actions influence academic outcomes', 'Q10': 'Recovers quickly from disappointment'
+    'Q1': 'Can overcome academic difficulties', 
+    'Q2': 'Takes responsibility for improvement',
+    'Q3': 'Setback doesn\'t affect confidence in other subjects', 
+    'Q4': 'Academic problems are temporary',
+    'Q5': 'Control response under pressure', 
+    'Q6': 'Reflects on mistakes to improve',
+    'Q7': 'Failures don\'t define overall ability', 
+    'Q8': 'Motivated when results not immediate',
+    'Q9': 'Actions influence academic outcomes', 
+    'Q10': 'Recovers quickly from disappointment'
 }
+
+
 
 @router.get("/feature-importance", response_model=FeatureImportanceResponse)
 async def get_global_feature_importance():
     try:
-        from app import model_registry
+     
+        from main import model_registry
         
         if not model_registry.global_feature_importance:
-             raise HTTPException(status_code=404, detail="Global feature importance JSON not found. Please run the training script.")
+             raise HTTPException(
+                 status_code=404, 
+                 detail="Global feature importance JSON not found. Please ensure 'feature_importance.json' is generated during training."
+             )
              
         dynamic_features = model_registry.global_feature_importance
 
@@ -55,6 +66,8 @@ async def get_global_feature_importance():
             interpretation=interpretation
         )
         
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Error retrieving feature importance: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))

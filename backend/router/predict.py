@@ -38,6 +38,10 @@ class PredictionResponse(BaseModel):
     weak_dimensions: List[Dict[str, Any]]
     behavioral_pattern: str
     recommendations: List[Dict[str, Any]]
+
+router = APIRouter(prefix="", tags=["Prediction"])
+
+
 def calculate_core_scores(responses: Dict) -> Dict:
     """Calculate CORE dimension scores"""
     return {
@@ -46,18 +50,13 @@ def calculate_core_scores(responses: Dict) -> Dict:
         'Reach': (responses['Q3'] + responses['Q7']) / 2,
         'Endurance': (responses['Q4'] + responses['Q8'] + responses['Q10']) / 3,
     }
+
 def identify_weak_dimensions(core_scores: Dict, threshold=3.0) -> List[Dict]:
     """Identify weak CORE dimensions below threshold"""
     weak_dims = []
-    
     for dimension, score in core_scores.items():
         if score < threshold:
-            severity = (
-                'Critical' if score < 2.0 else
-                'High' if score < 2.5 else
-                'Moderate'
-            )
-            
+            severity = 'Critical' if score < 2.0 else 'High' if score < 2.5 else 'Moderate'
             weak_dims.append({
                 'dimension': dimension,
                 'score': float(score),
@@ -65,12 +64,7 @@ def identify_weak_dimensions(core_scores: Dict, threshold=3.0) -> List[Dict]:
                 'target_score': 3.5,
                 'improvement_needed': float(3.5 - score)
             })
-    
     return sorted(weak_dims, key=lambda x: x['improvement_needed'], reverse=True)
-
-
-
-router = APIRouter(prefix="", tags=["Prediction"])
 
 def get_behavioral_pattern(ml_category: str, core_scores: Dict) -> str:
     """Dynamically generated based strictly on the ML predicted category."""
@@ -82,14 +76,54 @@ def get_behavioral_pattern(ml_category: str, core_scores: Dict) -> str:
     elif ml_category == 'Medium':
         return f"MODERATELY RESILIENT: Solid resilience detected. Strongest: {strongest}, Weakest: {weakest}. Focus on strengthening your {weakest} dimension."
     else:
-        return f"BUILDING RESILIENCE: Priority is to build your {weakest} dimension. External support and mentorship recommended."
+        return f"BUILDING RESILIENCE: ML flagged low resilience. Priority is to build your {weakest} dimension. External support and mentorship recommended."
+
+def generate_recommendations(core_scores: Dict) -> List[Dict]:
+    """Generate personalized improvement recommendations based on weak dimensions."""
+    recommendations = []
+    weak_dims = identify_weak_dimensions(core_scores)
+    
+    templates = {
+        'Control': {
+            'Suggestion': 'Develop personal agency through small wins',
+            'Actions': ['Set 3 small achievable academic goals weekly', 'Practice positive self-talk: "I can solve this"', 'Seek mentorship for problem-solving strategies']
+        },
+        'Ownership': {
+            'Suggestion': 'Build responsibility and learning from mistakes',
+            'Actions': ['After each test, do a 10-minute reflection', 'Identify 1 specific area to improve next time', 'Create a "Next time I will..." action plan']
+        },
+        'Reach': {
+            'Suggestion': 'Build resilience in self-concept',
+            'Actions': ['Practice positive identity statements daily', 'Remember: one grade doesn\'t define your entire identity', 'Compartmentalize failures as specific events']
+        },
+        'Endurance': {
+            'Suggestion': 'Build persistence and long-term motivation',
+            'Actions': ['Break large goals into 2-4 week milestones', 'Track progress - even small improvements count', 'Find peers with similar goals for mutual support']
+        }
+    }
+    
+    for dim in weak_dims:
+        dimension = dim['dimension']
+        severity = dim['severity']
+        
+        if dimension in templates:
+            template = templates[dimension]
+            recommendations.append({
+                'Dimension': dimension,
+                'Priority': severity,
+                'Suggestion': template['Suggestion'],
+                'Actions': template['Actions']
+            })
+    
+    return recommendations
 
 @router.post("/predict", response_model=PredictionResponse)
 async def predict_aq(questionnaire: QuestionnaireInput):
     try:
-        from app import model_registry
+  
+        from main import model_registry
         
-        # Ensure models are actually loaded
+      
         if not model_registry.models or 'XGBoost' not in model_registry.models:
             raise HTTPException(status_code=500, detail="ML Models are not trained/loaded. Cannot make dynamic predictions.")
 
@@ -106,13 +140,11 @@ async def predict_aq(questionnaire: QuestionnaireInput):
         model_confidences = {}
         confidences = []
         
-        
+    
         class_mapping = {0: 'Low', 1: 'Medium', 2: 'High'}
 
         for model_name in ['Logistic Regression', 'Decision Tree', 'Random Forest', 'SVM', 'XGBoost']:
             pred, proba = model_registry.predict(X, model_name)
-            
-            # Map the integer prediction to string
             pred_str = class_mapping.get(int(pred), str(pred))
             
             model_predictions[model_name] = pred_str
@@ -120,14 +152,15 @@ async def predict_aq(questionnaire: QuestionnaireInput):
             model_confidences[model_name] = confidence
             confidences.append(confidence)
         
-        
+    
         final_aq_category = model_predictions['XGBoost']
         avg_confidence = float(np.mean(confidences))
         
-        
+      
         feature_importance = []
         if model_registry.shap_explainer:
             shap_vals = model_registry.shap_explainer.shap_values(X)
+            
             vals = np.mean([np.abs(sv[0]) for sv in shap_vals], axis=0) if isinstance(shap_vals, list) else np.abs(shap_vals[0])
             feature_names = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Q9', 'Q10']
             
@@ -135,13 +168,14 @@ async def predict_aq(questionnaire: QuestionnaireInput):
             sorted_fi = sorted(fi_dict.items(), key=lambda x: x[1], reverse=True)
             feature_importance = [{'question': k, 'importance': float(v), 'rank': idx + 1} for idx, (k, v) in enumerate(sorted_fi[:3])]
 
+       
         weak_dimensions = identify_weak_dimensions(core_scores)
         behavioral_pattern = get_behavioral_pattern(final_aq_category, core_scores)
-        recommendations = generate_recommendations(core_scores) # Keep your existing generate_recommendations func
+        recommendations = generate_recommendations(core_scores)
         
         return PredictionResponse(
             aq_category=final_aq_category,
-            aq_score=float(np.mean(list(core_scores.values()))), # Retained strictly for UI charting purposes
+            aq_score=float(np.mean(list(core_scores.values()))), 
             confidence=avg_confidence,
             core_scores={k: float(v) for k, v in core_scores.items()},
             model_predictions=model_predictions,
