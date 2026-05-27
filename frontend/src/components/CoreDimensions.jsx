@@ -59,7 +59,7 @@ function CoreDimensions({ dimensions, scores }) {
                 </div>
                 {score != null && (
                   <span className="dimension-score-badge">
-                    {score}/{ideal}
+                    {Number(score).toFixed(2)}/{ideal}
                   </span>
                 )}
               </div>

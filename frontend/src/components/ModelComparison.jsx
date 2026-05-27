@@ -73,11 +73,11 @@ function ModelComparison({ data, isLoading }) {
                       {isBest && <span className="best-badge">Best</span>}
                     </span>
                   </td>
-                  <td>{(model.accuracy || 0).toFixed(4)}</td>
-                  <td>{(model.f1_score || 0).toFixed(4)}</td>
-                  <td>{(model.auc_roc || 0).toFixed(4)}</td>
-                  <td>{(model.cv_mean || 0).toFixed(4)}</td>
-                  <td>{(model.cv_std || 0).toFixed(4)}</td>
+                  <td>{(model.accuracy || 0).toFixed(2)}</td>
+                  <td>{(model.f1_score || 0).toFixed(2)}</td>
+                  <td>{(model.auc_roc || 0).toFixed(2)}</td>
+                  <td>{(model.cv_mean || 0).toFixed(2)}</td>
+                  <td>{(model.cv_std || 0).toFixed(2)}</td>
                 </tr>
               );
             })}
@@ -98,19 +98,19 @@ function ModelComparison({ data, isLoading }) {
               <div className="model-card-mobile-metrics">
                 <div className="metric-item">
                   <span className="metric-label">Accuracy</span>
-                  <span className="metric-value">{(model.accuracy || 0).toFixed(4)}</span>
+                  <span className="metric-value">{(model.accuracy || 0).toFixed(2)}</span>
                 </div>
                 <div className="metric-item">
                   <span className="metric-label">F1 Score</span>
-                  <span className="metric-value">{(model.f1_score || 0).toFixed(4)}</span>
+                  <span className="metric-value">{(model.f1_score || 0).toFixed(2)}</span>
                 </div>
                 <div className="metric-item">
                   <span className="metric-label">AUC-ROC</span>
-                  <span className="metric-value">{(model.auc_roc || 0).toFixed(4)}</span>
+                  <span className="metric-value">{(model.auc_roc || 0).toFixed(2)}</span>
                 </div>
                 <div className="metric-item">
                   <span className="metric-label">CV Mean</span>
-                  <span className="metric-value">{(model.cv_mean || 0).toFixed(4)}</span>
+                  <span className="metric-value">{(model.cv_mean || 0).toFixed(2)}</span>
                 </div>
               </div>
             </div>

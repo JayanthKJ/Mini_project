@@ -75,7 +75,7 @@ function ResultsDashboard({ results, onReset }) {
           <div className="aq-gauge-ring" style={gaugeStyle}></div>
           <div className="aq-gauge-inner">
             <div className="aq-score-value" style={{ color: gaugeColor }}>
-              {aq_score}
+              {Number(aq_score).toFixed(2)}
             </div>
             <div className="aq-score-label">AQ Score</div>
           </div>
@@ -130,15 +130,15 @@ function ResultsDashboard({ results, onReset }) {
                 <div className="weak-scores">
                   <div className="weak-score-item">
                     <span className="weak-score-label">Current</span>
-                    <span className="weak-score-value current">{dim.current_score}</span>
+                    <span className="weak-score-value current">{Number(dim.current_score).toFixed(2)}</span>
                   </div>
                   <div className="weak-score-item">
                     <span className="weak-score-label">Target</span>
-                    <span className="weak-score-value target">{dim.target_score}</span>
+                    <span className="weak-score-value target">{Number(dim.target_score).toFixed(2)}</span>
                   </div>
                   <div className="weak-score-item">
                     <span className="weak-score-label">Gap</span>
-                    <span className="weak-score-value improvement">+{dim.improvement_needed}</span>
+                    <span className="weak-score-value improvement">+{Number(dim.improvement_needed).toFixed(2)}</span>
                   </div>
                 </div>
               </div>

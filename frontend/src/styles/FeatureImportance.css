@@ -139,13 +139,13 @@
 .insight-card {
   margin-left: calc(28px + var(--space-md));
   margin-top: var(--space-sm);
-  padding: var(--space-sm) var(--space-md);
-  background: rgba(var(--color-primary-rgb), 0.04);
-  border-left: 3px solid var(--color-primary);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  font-size: 0.8rem;
+  padding: var(--space-md);
+  background: rgba(var(--color-primary-rgb), 0.08);
+  border-left: 4px solid var(--color-primary);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-size: 0.85rem;
   color: var(--color-text-secondary);
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .insight-card strong {

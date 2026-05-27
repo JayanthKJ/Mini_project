@@ -94,7 +94,7 @@ function FeatureImportance({ data, isLoading }) {
                     <span className="feature-description"> — {label}</span>
                   </div>
                   <span className="feature-importance-value">
-                    {importance.toFixed(4)}
+                    {importance.toFixed(2)}
                   </span>
                 </div>
 

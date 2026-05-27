@@ -40,15 +40,17 @@ function RecommendationCard({ recommendation }) {
         </span>
       </div>
 
-      <p className="recommendation-suggestion">{suggestion}</p>
+      <div className="recommendation-body">
+        <p className="recommendation-suggestion">{suggestion}</p>
 
-      {action_items && action_items.length > 0 && (
-        <ul className="action-items">
-          {action_items.map((item, idx) => (
-            <li key={idx}>{item}</li>
-          ))}
-        </ul>
-      )}
+        {action_items && action_items.length > 0 && (
+          <ul className="action-items">
+            {action_items.map((item, idx) => (
+              <li key={idx}>{item}</li>
+            ))}
+          </ul>
+        )}
+      </div>
 
       {expected_impact && (
         <div className="expected-impact">

@@ -33,7 +33,7 @@
   --color-surface-hover: rgba(40, 42, 56, 0.9);
 
   /* Text */
-  --color-text: hsl(220, 20%, 92%);
+  --color-text: hsl(220, 20%, 88%);
   --color-text-secondary: hsl(220, 15%, 65%);
   --color-text-muted: hsl(220, 10%, 50%);
 
@@ -145,7 +145,7 @@
 
 /* Dark mode insight card */
 [data-theme="dark"] .insight-card {
-  background: rgba(99, 102, 241, 0.08);
+  background: rgba(99, 102, 241, 0.12);
 }
 
 /* Dark mode mobile cards */
